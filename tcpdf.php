@@ -6847,6 +6847,8 @@ class TCPDF {
 					$file = $tfile;
 				}
 			}
+            if(strpos($file, $_SERVER['DOCUMENT_ROOT']) === false and strpos($file, '__tcpdf_') === false)
+                $file = $_SERVER['DOCUMENT_ROOT'] . $file;
 			if (($imsize = @getimagesize($file)) === FALSE) {
 				if (in_array($file, $this->imagekeys)) {
 					// get existing image data
