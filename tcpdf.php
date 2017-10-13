@@ -6816,11 +6816,16 @@ class TCPDF {
 	 * @since 1.1
 	 */
 	public function Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false, $alt=false, $altimgs=array()) {
-//        if (! file_exists($file))
-//        {
-//            return;
-//        }
-		if ($this->state != 2) {
+        $decodedFile = urldecode($file);
+        if(strpos($decodedFile, $_SERVER['DOCUMENT_ROOT']) === false and strpos($decodedFile, '__tcpdf_') === false)
+        {
+            $decodedFile = $_SERVER['DOCUMENT_ROOT'] . $decodedFile;
+        }
+        if(! file_exists($decodedFile))
+        {
+            return;
+        }
+        if ($this->state != 2) {
 			return;
 		}
 		if (strcmp($x, '') === 0) {
